@@ -33,17 +33,25 @@ api.interceptors.response.use(
         return response;
     },
     async (error)=>{
-        const orignalRequest = error.config;
+        const originalRequest = error.config;
 
-        if(error.response?.status === 401 && !orignalRequest._retry){
-            orignalRequest._retry = true;
+
+        if (
+            originalRequest.url.includes('/login') || 
+            originalRequest.url.includes('/register')
+            ) {
+            return Promise.reject(error); // Direct original error (e.g., "Invalid credentials") pass karein
+        }
+
+        if(error.response?.status === 401 && !originalRequest._retry){
+            originalRequest._retry = true;
             try{
                 const response = await refreshApi.post(`${import.meta.env.VITE_API_URL}/api/auth/refresh`,{},{withCredentials:true});
                 const newAccessToken = response.data.accessToken;
                 store.dispatch(setAccessToken(newAccessToken));
                 store.dispatch(setUser(response.data.user));
-                orignalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-                return api(orignalRequest);
+                originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+                return api(originalRequest);
             }catch(refreshError){
                 store.dispatch(clearAuth());
                 return Promise.reject(refreshError);
