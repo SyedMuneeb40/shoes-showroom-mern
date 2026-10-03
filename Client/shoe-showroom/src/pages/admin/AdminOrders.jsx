@@ -63,7 +63,6 @@ const AdminOrders = () => {
 
             const data = await getAllOrders();
 
-            console.log("ADMIN ORDERS:", data);
 
             setOrders(data.orders || []);
 
