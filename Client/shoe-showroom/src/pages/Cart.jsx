@@ -53,7 +53,6 @@ const Cart = () => {
             // 1. Create order
             const orderData = await checkout();
 
-            console.log("ORDER CREATED:", orderData);
 
             const orderId = orderData.order._id;
 
@@ -61,7 +60,6 @@ const Cart = () => {
             // 2. Create PayFast payment
             const paymentData = await createPayment(orderId);
 
-            console.log("PAYMENT DATA:", paymentData);
 
 
             // 3. Submit PayFast form
@@ -224,7 +222,6 @@ const Cart = () => {
 
                 const data = await getCart();
 
-                console.log("CART:", data);
 
                 dispatch(setCart(data.cart));
 

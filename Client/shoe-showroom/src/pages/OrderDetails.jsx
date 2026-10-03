@@ -24,8 +24,6 @@ const OrderDetails = () => {
 
                 const data = await getOrderById(orderId);
 
-                console.log("ORDER:", data);
-
                 setOrder(data.order);
 
             } catch (error) {

@@ -27,8 +27,6 @@ const Orders = () => {
 
             const data = await getOrders();
 
-            console.log("ORDERS:", data);
-
             setOrders(data.orders || []);
 
         } catch (error) {
