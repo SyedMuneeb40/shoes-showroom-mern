@@ -4,12 +4,12 @@ import { clearAuth, setAccessToken, setUser } from '../store/authSlice';
 
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || "http://localhost:6000",
+    baseURL: import.meta.env.VITE_API_URL,
     withCredentials:true
 });
 
 const refreshApi = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
+    baseURL: import.meta.env.VITE_API_URL,
     withCredentials: true
 });
 
